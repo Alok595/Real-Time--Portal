@@ -6,8 +6,8 @@ import FeedInputArea from './FeedInputArea';
 
 const MAX_BACKOFF = 10000;
 const INITIAL_BACKOFF = 1000;
-const WS_URL = 'wss://ws.postman-echo.com/raw';
-// const WS_URL = 'wss://echo.websocket.events';
+// const WS_URL = 'wss://ws.postman-echo.com/raw';
+const WS_URL = 'wss://echo.websocket.events';  // not live in my case i have tested 
 
 export default function LiveFeedEngine() {
   const [connectionStatus, setConnectionStatus] = useState('CONNECTING');
