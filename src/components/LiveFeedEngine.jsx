@@ -6,8 +6,8 @@ import FeedInputArea from './FeedInputArea';
 
 const MAX_BACKOFF = 10000;
 const INITIAL_BACKOFF = 1000;
-// const WS_URL = 'wss://ws.postman-echo.com/raw';
-const WS_URL = 'wss://echo.websocket.events';  // not live in my case i have tested 
+const WS_URL = 'wss://ws.postman-echo.com/raw';
+// const WS_URL = 'wss://echo.websocket.events';  // not live in my case i have tested 
 
 export default function LiveFeedEngine() {
   const [connectionStatus, setConnectionStatus] = useState('CONNECTING');
@@ -53,14 +53,14 @@ export default function LiveFeedEngine() {
 
       ws.onerror = (error) => {
         console.error('WebSocket Error', error);
-        
+
       };
 
       ws.onclose = () => {
         setConnectionStatus('DISCONNECTED');
         logEvent('WebSocket Disconnected', { backoff: backoffRef.current });
 
-        
+
         reconnectTimeout = setTimeout(() => {
           backoffRef.current = Math.min(backoffRef.current * 2, MAX_BACKOFF);
           connect();
@@ -69,14 +69,14 @@ export default function LiveFeedEngine() {
     }
 
     function handleOffline() {
-      
+
       if (wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
         wsRef.current.close();
       }
     }
 
     function handleOnline() {
-      
+
       if (!wsRef.current || wsRef.current.readyState === WebSocket.CLOSED) {
         clearTimeout(reconnectTimeout);
         backoffRef.current = INITIAL_BACKOFF;
@@ -86,7 +86,7 @@ export default function LiveFeedEngine() {
 
     window.addEventListener('offline', handleOffline);
     window.addEventListener('online', handleOnline);
-    
+
     connect();
 
     return () => {
@@ -151,7 +151,7 @@ export default function LiveFeedEngine() {
       />
 
       {/* input area */}
-      <FeedInputArea 
+      <FeedInputArea
         inputValue={inputValue}
         setInputValue={setInputValue}
         handleSendMessage={handleSendMessage}
